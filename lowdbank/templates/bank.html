@@ -1,0 +1,24 @@
+{% extends 'game_location.html' %}
+
+{% block content %}
+
+<h2>Da Bank</h2>
+<h4>You have entered the bank</h4>
+<p>You have <strong>{{ player.gold}}g</strong></p>
+<form method="POST">{% csrf_token %}
+                <label for="bank-deposit-input">Deposit Amount</label>
+                <input type="text" id="bank-deposit-input" name="deposit-input">
+                <input type="submit" value="Deposit">
+</form>
+
+<form method="POST">{% csrf_token %}
+                <label for="bank-withdrawal-input">Withdraw Amount</label>
+                <input type="text" id="bank-withdrawal-input" name="withdrawal-input">
+                <input type="submit" value="Withdraw">
+</form>
+{% include '_message_display.html' %}
+<div class="location-options">
+    <a href="{% url 'town_square' %}" class="location-option m-3">Return to town</a>
+    <a href="{% url 'weapon_shop' %}" class="location-option m-3">Weapon Shop</a>
+</div>
+{% endblock %}

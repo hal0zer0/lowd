@@ -1,0 +1,21 @@
+{% extends 'game_location.html' %}
+
+{% block content %}
+<h2>Create your player</h2>
+<form method="POST">{% csrf_token %}
+    <fieldset>
+        <label for="player_name">Your character name:</label>
+        <input type="text" id="player_name" name="name_input" placeholder="{{ user.username }}" >
+
+        <hr>
+    {% for playerclass in classes %}
+
+        <input type="radio" id="{{ playerclass.name }}" value="{{ playerclass.name }}" name="class_buttons">
+        <label for="{{ playerclass.name }}">{{ playerclass.name }} - {{ playerclass.description }}</label><br>
+
+    {% endfor %}
+    </fieldset>
+    <input type="submit" value="Submit now">
+</form>
+
+{% endblock %}

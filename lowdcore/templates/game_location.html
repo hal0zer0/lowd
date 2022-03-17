@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block location_wrapper %}
+    <p>=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</p>
+    <h1>Legend of the White Dragon</h1>
+    <div id="game-container" class="row">
+
+
+        {% include '_stats.html' %}
+
+        <div id="main-game-panel" class="col-9">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+    </div>
+    <p>=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-</p>
+{% endblock %}

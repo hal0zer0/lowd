@@ -1,0 +1,11 @@
+{% extends 'game_location.html' %}
+
+{% block content %}
+
+<h2>Forest Fight</h2>
+<h4>You had a fight with a {{ monster.name }}!  Such wow!</h4>
+<div class="location-options">
+    <a href="{% url 'forest' %}" class="location-option m-3">Back to forest</a>
+    <a href="{% url 'town_square' %}" class="location-option m-3">Back to town</a>
+</div>
+{% endblock %}

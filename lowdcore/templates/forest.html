@@ -1,0 +1,11 @@
+{% extends 'game_location.html' %}
+
+{% block content %}
+
+<h2>Scary Scary Forest</h2>
+<h4>You have entered the dark forest.  Hopefully your {{ player.weapon.name }} will be enough.</h4>
+<div class="location-options">
+    <a href="{% url 'fight' %}" class="location-option m-3">Look for something to kill</a>
+    <a href="{% url 'town_square' %}" class="location-option m-3">Return to Town</a>
+</div>
+{% endblock %}

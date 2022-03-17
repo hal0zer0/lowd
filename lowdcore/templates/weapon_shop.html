@@ -1,0 +1,42 @@
+{% extends 'game_location.html' %}
+
+{% block content %}
+
+<h2>Ye Olde Weapon Shoppe</h2>
+<h4>You have entered the weapon shop</h4>
+<form method="POST">{% csrf_token %}
+
+    <fieldset>
+        <table class="w-100 border">
+            <thead>
+                <td>Name</td>
+                <td>Damage</td>
+                <td>Cost</td>
+
+            </thead>
+            <tbody>
+            {% for weapon in weapons %}
+                <tr>
+                    <td><input name="weapon-selection" type="radio" id="weapon-num-{{ weapon.id }}" value="{{ weapon.id }}">{{ weapon.name }}</td>
+                    <td>{{ weapon.damage }}</td>
+                    <td>{{ weapon.cost }}</td>
+                </tr>
+
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </fieldset>
+    <p>With auto-sell of your {{ player.weapon.name }} you can spend {{ player.gold|add:player.weapon.sell_price }}g</p>
+        {% include '_message_display.html' %}
+
+
+    <input type="submit" value="Buy">
+</form>
+
+
+
+<div class="location-options">
+    <a href="{% url 'town_square' %}" class="location-option m-3">Leave</a>
+</div>
+{% endblock %}

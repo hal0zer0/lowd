@@ -1,0 +1,12 @@
+{% extends 'game_location.html' %}
+
+{% block content %}
+
+<h2>Town Square</h2>
+<h4>You have entered the town square, {{ player.char_name }}, the mighty {{ player.player_class.name }}</h4>
+<div class="location-options">
+    <a href="{% url 'forest' %}" class="location-option m-3">Forest</a>
+    <a href="{% url 'weapon_shop' %}" class="location-option m-3">Weapon Shop</a>
+    <a href="{% url 'bank' %}" class="location-option m-3">Bank</a>
+</div>
+{% endblock %}

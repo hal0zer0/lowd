@@ -1,0 +1,38 @@
+<div id="stats-panel" class="col-3 border">
+    <p>{{ player.char_name }} the {{ player.player_class.name }}</p>
+    <hr/>
+    <table class="w-100">
+        <thead>
+        <tr>
+            <td>Stat</td>
+            <td>Value</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Health</td>
+            <td>{{ player.current_hp }}/{{player.max_hp}}</td>
+        </tr>
+        <tr>
+            <td>Weapon</td>
+            <td>{{ player.weapon.name }}</td>
+        </tr>
+        <tr>
+            <td>Damage</td>
+            <td>{{ player.weapon.damage }}</td>
+        </tr>
+        <tr>
+            <td>Gold</td>
+            <td>{{ player.gold }}</td>
+        </tr>
+        <tr>
+            <td>F Fights/day</td>
+            <td>{{ player.forest_fights_per_day }}</td>
+        </tr>
+        <tr>
+            <td>F Fights left</td>
+            <td>{{ player.forest_fights_remaining }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

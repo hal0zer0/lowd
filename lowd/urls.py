@@ -29,4 +29,6 @@ urlpatterns = [
     path('forest/look', login_required(views.FightView.as_view()), name="fight"),
     path('weapons/', login_required(views.WeaponShopView.as_view()), name="weapon_shop"),
     path('bank/', include('lowdbank.urls')),
+    #path('login/', views.LoginView.as_view()),
+    path('accounts/', include('django.contrib.auth.urls'))
 ]

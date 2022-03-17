@@ -10,6 +10,8 @@ from django.contrib import messages
 class HomeView(TemplateView):
     template_name = "home.html"
 
+class LoginView(TemplateView):
+    template_name = "login.html"
 
 class TownSquareView(View):
     template_name = "town_square.html"

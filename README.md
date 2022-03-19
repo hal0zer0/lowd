@@ -24,6 +24,6 @@ From within directory containing manage.py
 
 Which should give you web access at localhost:8000
 
-Login is required for all views, so first go to /admin and login there with admin/roadhouse.  After that / will give you a site.  I'm making a login page now.
+Login is required for all views user:admin pw:roadhouse 
 
 Again, this is temporary.  

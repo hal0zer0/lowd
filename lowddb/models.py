@@ -44,6 +44,7 @@ class Player(models.Model):
     last_day_played = models.DateField(auto_now=True)
     level = models.PositiveSmallIntegerField(default=1)
     charm = models.PositiveSmallIntegerField()
+    bank_account = models.PositiveIntegerField()
 
     def __str__(self):
         return self.char_name

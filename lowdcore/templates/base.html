@@ -12,7 +12,9 @@
   </head>
   <body>
     <div class="container">
-
+      {% if user.is_authenticated %}
+      <a href="{% url 'logout' %}">Log Out</a>
+      {% endif %}
 
       {% block location_wrapper %}
       {% endblock %}

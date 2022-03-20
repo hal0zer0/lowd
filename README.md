@@ -27,3 +27,8 @@ Which should give you web access at localhost:8000
 Login is required for all views user:admin pw:roadhouse 
 
 Again, this is temporary.  
+
+### State of game
+It's currently set to create a new character on EVERY login, but that's simply because I want that for now.  
+
+To KEEP your character, just uncheck the "New" box from within /admin User page

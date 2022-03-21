@@ -48,16 +48,22 @@ class ForestView(View):
 class FightView(View):
     def get(self, request):
         player = User.objects.get(username=request.user.username).player
-        mob = random.choice(Monster.objects.filter(level=player.level))
-
+        mob = random.choice(Monster.objects.filter(level=player.level, instance=False))
+        mob.pk = None
+        mob.id = None
+        mob.name = mob.name + " INSTANCE"
+        mob.instance = True
+        mob.save()
+        player.current_mob = mob
+        player.save()
         return render(request, "fight.html", {'player': player,
-                                              'monster': mob})
+                                              'monster': player.current_mob})
 
 
 class WeaponShopView(View):
     def get(self, request):
         player = User.objects.get(username=request.user.username).player
-        weapons = Weapon.objects.filter(player_weapon=True).order_by('cost')
+        weapons = Weapon.objects.filter(shop_weapon=True).order_by('level')
         return render(request, "weapon_shop.html", {'player': player,
                                                     'weapons': weapons})
     def post(self, request):
@@ -92,6 +98,10 @@ def check_new(request):
     else:
         return redirect('town_square')
 
-
+class AttackView(View):
+    def get(self, request):
+        player = User.objects.get(username=request.user.username).player
+        messages.add_message(request, messages.INFO, f'{ player.weapon.damage}')
+        return redirect('fight')
 
 

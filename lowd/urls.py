@@ -27,6 +27,7 @@ urlpatterns = [
     path('town_square/', login_required(views.TownSquareView.as_view()), name="town_square"),
     path('forest/', login_required(views.ForestView.as_view()), name="forest"),
     path('forest/look', login_required(views.FightView.as_view()), name="fight"),
+    path('forest/attack', login_required(views.AttackView.as_view()), name="attack"),
     path('weapons/', login_required(views.WeaponShopView.as_view()), name="weapon_shop"),
     path('bank/', include('lowdbank.urls')),
     #path('login/', views.LoginView.as_view()),

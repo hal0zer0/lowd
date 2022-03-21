@@ -1,3 +1,4 @@
+{% if player %}
 <div id="stats-panel" class="col-3 border">
     <p>{{ player.char_name }} the {{ player.player_class.name }}</p>
     <hr/>
@@ -40,3 +41,4 @@
         </tbody>
     </table>
 </div>
+{% endif %}

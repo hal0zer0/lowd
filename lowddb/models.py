@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from lowd.settings import DMG_MULTIPLIER, COST_MULTIPLIER
 
 class WeaponType(models.Model):
     name = models.CharField(max_length=16)
@@ -9,10 +10,17 @@ class WeaponType(models.Model):
 
 class Weapon(models.Model):
     name = models.CharField(max_length=32)
-    damage = models.PositiveSmallIntegerField()
-    cost = models.PositiveIntegerField()
+    level = models.PositiveSmallIntegerField()
     type = models.ForeignKey("WeaponType", on_delete=models.CASCADE)
-    player_weapon = models.BooleanField(default=False)
+    shop_weapon = models.BooleanField(default=False)
+
+    @property
+    def damage(self):
+        return int(DMG_MULTIPLIER * (2**self.level))
+
+    @property
+    def cost(self):
+        return COST_MULTIPLIER * (2**self.level)
 
     @property
     def sell_price(self):
@@ -20,6 +28,7 @@ class Weapon(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class PlayerClass(models.Model):
     name = models.CharField(max_length=32)
@@ -29,6 +38,17 @@ class PlayerClass(models.Model):
     def __str__(self):
         return self.name
 
+class NPC(models.Model):
+    name = models.CharField(max_length=64)
+    level = models.PositiveSmallIntegerField()
+    weapon = models.ForeignKey("Weapon", on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.name
+
+class Monster(NPC):
+    instance = models.BooleanField(default=False)
+
 # Create your models here.
 class Player(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -37,7 +57,7 @@ class Player(models.Model):
     current_hp = models.PositiveSmallIntegerField()
     new = models.BooleanField(default=True)
     player_class = models.ForeignKey("PlayerClass", on_delete=models.PROTECT)
-    weapon = models.ForeignKey("Weapon", on_delete=models.CASCADE)
+    weapon = models.ForeignKey("Weapon", null=True, on_delete=models.SET_NULL)
     gold = models.PositiveIntegerField(default=100)
     forest_fights_per_day = models.PositiveSmallIntegerField(default=20)
     forest_fights_remaining = models.PositiveSmallIntegerField(default=20)
@@ -45,21 +65,12 @@ class Player(models.Model):
     level = models.PositiveSmallIntegerField(default=1)
     charm = models.PositiveSmallIntegerField()
     bank_account = models.PositiveIntegerField()
+    current_mob = models.ForeignKey(Monster, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.char_name
 
-class NPC(models.Model):
-    name = models.CharField(max_length=64)
-    level = models.PositiveSmallIntegerField()
-    weapon = models.ForeignKey("Weapon", on_delete=models.CASCADE, null=True)
-    gold = models.PositiveIntegerField()
 
-    def __str__(self):
-        return self.name
-
-class Monster(NPC):
-    pass
 
 class Armor(models.Model):
     name = models.CharField(max_length=32)

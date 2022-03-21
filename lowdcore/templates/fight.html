@@ -3,7 +3,11 @@
 {% block content %}
 
 <h2>Forest Fight</h2>
-<h4>You had a fight with a {{ monster.name }}!  Such wow!</h4>
+<h4>You have encountered {{ monster.name }}! </h4>
+<p>The {{ monster.name }} lunges at you with <strong>{{ monster.weapon.name }}</strong></p>
+<div class="battle-options">
+    <a href="{% url 'attack' %}" class="m=3">Attack</a>
+</div>
 <div class="location-options">
     <a href="{% url 'forest' %}" class="location-option m-3">Back to forest</a>
     <a href="{% url 'town_square' %}" class="location-option m-3">Back to town</a>

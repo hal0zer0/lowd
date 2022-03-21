@@ -126,3 +126,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_URL = '/'
+
+DMG_MULTIPLIER = 2.5
+COST_MULTIPLIER = 100

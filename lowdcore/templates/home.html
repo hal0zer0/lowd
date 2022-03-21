@@ -5,9 +5,9 @@
         <div class="news-block border">
           <h1>News</h1>
             <hr/>
-            <ul>
+            <ul class="news-list">
                 {% for item in news %}
-                    <li>{{ item.timestamp }} - {{ item.text }}</li>
+                    <li class="news-item">{{ item.timestamp }} - {{ item.text }}</li>
                 {% endfor %}
             </ul>
         </div>

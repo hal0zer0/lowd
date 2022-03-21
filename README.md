@@ -9,7 +9,7 @@ Recreation of the BBS game "Legend of the Red Dragon" with Django
 ### Install Requirements
 ```pip install -r requirements.txt```
 
-### Secrets file
+### Setup & Secrets file
 Create a ```lowd_secrets.py``` file with a ```settings_secret_key=```containing a long random string LIKE
 ```python
 settings_secret_key='skG7f#8kgjdGD(wON29&3baWeCanDanceIfWeWantTo'
@@ -17,6 +17,11 @@ settings_secret_key='skG7f#8kgjdGD(wON29&3baWeCanDanceIfWeWantTo'
 This is used for background security stuff and should NOT be added to Git
 
 TEMPORARILY I am including a sqlite db to make initial setup easier for contributors.  Eventually the db will be removed from source control and I will provide fixtures for the data to be imported.
+
+```commandline
+python ./managepy makemigrations
+python ./manage.py migrate
+```
 
 ## Running
 From within directory containing manage.py

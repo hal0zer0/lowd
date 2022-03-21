@@ -40,7 +40,7 @@ class NewPlayerView(TemplateView):
         player.player_class = pclass_obj
         player.char_name = request.POST["name_input"]
         #player.new = False
-        announcement = News(text=f"{player.char_name} has joined the realm!")
+        announcement = News(text=f"{player.char_name} the {player.player_class.name} has joined the realm!")
         announcement.save()
         player.save()
 

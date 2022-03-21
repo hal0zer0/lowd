@@ -70,7 +70,9 @@ class Player(models.Model):
     def __str__(self):
         return self.char_name
 
-
+class News(models.Model):
+    text = models.CharField(max_length=512)
+    timestamp = models.DateTimeField(auto_now=True)
 
 class Armor(models.Model):
     name = models.CharField(max_length=32)

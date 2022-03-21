@@ -2,5 +2,14 @@
 
 {% block nonlocation %}
 <h1>Legend of the White Dragon</h1>
+        <div class="news-block border">
+          <h1>News</h1>
+            <hr/>
+            <ul>
+                {% for item in news %}
+                    <li>{{ item.timestamp }} - {{ item.text }}</li>
+                {% endfor %}
+            </ul>
+        </div>
 <a href="{% url 'check_new' %}">Begin</a>
 {% endblock %}

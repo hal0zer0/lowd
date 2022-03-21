@@ -18,6 +18,9 @@ class TownSquareView(View):
 
     def get(self, request):
         player = User.objects.get(username=request.user.username).player
+        # If the player is already "in combat", clear it.  This prevents cheats.
+        if player.current_mob:
+            player.current_mob.delete()
         return render(request, "town_square.html", {"player": player})
 
 
@@ -42,20 +45,26 @@ class NewPlayerView(TemplateView):
 class ForestView(View):
      def get(self, request):
         player = User.objects.get(username=request.user.username).player
+        # If the player is already "in combat", clear it.  This prevents cheats.
+        if player.current_mob:
+            player.current_mob.delete()
         return render(request, "forest.html", {'player': player})
 
 
 class FightView(View):
     def get(self, request):
         player = User.objects.get(username=request.user.username).player
-        mob = random.choice(Monster.objects.filter(level=player.level, instance=False))
-        mob.pk = None
-        mob.id = None
-        mob.name = mob.name + " INSTANCE"
-        mob.instance = True
-        mob.save()
-        player.current_mob = mob
-        player.save()
+        if not player.current_mob:
+            mob = random.choice(Monster.objects.filter(level=player.level, instance=False))
+            mob.pk = None
+            mob.id = None
+            mob.name = mob.name + " INSTANCE"
+            mob.instance = True
+            mob.save()
+            player.current_mob = mob
+            player.save()
+
+        #print(player_swing, variance_range, player_variance, final_variance)
         return render(request, "fight.html", {'player': player,
                                               'monster': player.current_mob})
 
@@ -63,6 +72,10 @@ class FightView(View):
 class WeaponShopView(View):
     def get(self, request):
         player = User.objects.get(username=request.user.username).player
+        # If the player is already "in combat", clear it.  This prevents cheats.
+        if player.current_mob:
+            player.current_mob.delete()
+
         weapons = Weapon.objects.filter(shop_weapon=True).order_by('level')
         return render(request, "weapon_shop.html", {'player': player,
                                                     'weapons': weapons})
@@ -101,7 +114,14 @@ def check_new(request):
 class AttackView(View):
     def get(self, request):
         player = User.objects.get(username=request.user.username).player
-        messages.add_message(request, messages.INFO, f'{ player.weapon.damage}')
+
+        # max 10% variance
+        variance_range = player.weapon.damage / 10
+        player_variance = random.random() * variance_range
+        final_variance = player_variance - (variance_range/2)
+        player_swing = int(player.weapon.damage + final_variance)
+
+        messages.add_message(request, messages.INFO, f'You hit for { player_swing} damage!')
         return redirect('fight')
 
 

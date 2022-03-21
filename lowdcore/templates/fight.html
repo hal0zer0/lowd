@@ -4,6 +4,7 @@
 
 <h2>Forest Fight</h2>
 <h4>You have encountered {{ monster.name }}! </h4>
+{% include '_message_display.html' %}
 <p>The {{ monster.name }} lunges at you with <strong>{{ monster.weapon.name }}</strong></p>
 <div class="battle-options">
     <a href="{% url 'attack' %}" class="m=3">Attack</a>
